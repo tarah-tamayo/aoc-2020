@@ -12,7 +12,8 @@ for line in lines:
     sf = [int(x) for x in entry[0].split('-')]
     c = entry[1][0]
     p = entry[2]
-    if p[sf[0]-1] != p[sf[1]-1] and (p[sf[0]-1] == c or p[sf[1]-1] == c):
-        print(entry)
+    # if p[sf[0]-1] != p[sf[1]-1] and (p[sf[0]-1] == c or p[sf[1]-1] == c):
+    # You can use bitwise XOR on boolean values: 
+    if (p[sf[0]-1] == c) ^ (p[sf[1]-1] == c):
         i += 1
 print(i)
