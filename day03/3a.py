@@ -37,7 +37,7 @@ class treegrid:
     def multiply_slopes(self, slopes: list) -> int:
         mult = 1
         for slope in slopes:
-            mult = mult * self.count_slope(slope[0], slope[1])
+            mult = mult * self.count_slope(*slope)
         return mult
         
 if __name__ == "__main__":
