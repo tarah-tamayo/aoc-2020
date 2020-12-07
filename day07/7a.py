@@ -37,10 +37,8 @@ class bag:
     def count_succ(self) -> int:
         count = 0
         if len(self.contains.keys()) == 0:
-            print(f"{ self.bagType } --> 1")
             return 0
         for succ in self.contains.values():
-            print(f"{ self.bagType } --> { str(succ[0]) } * { succ[1].bagType }")
             # Add one to include bag with its contents
             count += succ[0] * (succ[1].count_succ() + 1)
         return count
