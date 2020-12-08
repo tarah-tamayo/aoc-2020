@@ -42,6 +42,7 @@ class prog:
         last_acc = self.acc
         last_step = self.step
         count = 0
+        changes = 0
         while self.step < len(self.lines):
             self.seen = deepcopy(last_seen)
             self.acc = last_acc
@@ -58,11 +59,14 @@ class prog:
             if code == "nop":
                 print(f"Recovering... changed instruction { this_step } from { code } to jmp")
                 self.lines[this_step][0] = "jmp"
+                changes += 1
             else:
                 print(f"Recovering... changed instruction { this_step } from { code } to nop")
                 self.lines[this_step][0] = "nop"
+                changes += 1
             if not self.run():
                 self.lines[this_step][0] = code
+        print(f"Recovered after { changes } attempts.")
 
 if __name__ == "__main__":
     with open('day8.in') as f:
