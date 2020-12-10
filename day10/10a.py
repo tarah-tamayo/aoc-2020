@@ -7,7 +7,6 @@ jolts = 0
 # built in adapter is always +3
 adapter_diffs = [0,0,1]
 for adapter in adapters:
-    #print(f"J: { jolts } A: { adapter } D: { adapter_diffs }")
     adapter_diffs[adapter - jolts - 1] += 1
     jolts = adapter
 print(f"Day 10 Part 1: { adapter_diffs[0] * adapter_diffs[2] }")
