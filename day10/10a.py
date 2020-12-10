@@ -24,9 +24,8 @@ for adapter in adapters:
         adapter_paths[adapter] = []
     else:
         adapter_paths[adapter] = list(filter(lambda a: a - adapter <= 3 and a - adapter > 0, adapters))
-num_paths[device] = 1
 
-jolts = 0
+num_paths[device] = 1
 def do_paths(jolts) -> int:
     paths = 0
     if jolts in num_paths.keys():
