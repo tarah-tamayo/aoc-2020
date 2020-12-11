@@ -1,5 +1,3 @@
-from itertools import combinations
-
 with open('day10.in') as f:
     adapters = sorted([int(x) for x in f])
 
