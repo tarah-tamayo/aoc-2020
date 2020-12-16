@@ -1,5 +1,4 @@
 import re
-from copy import deepcopy
 
 with open('day16.in') as f:
     lines = f.read().splitlines()
