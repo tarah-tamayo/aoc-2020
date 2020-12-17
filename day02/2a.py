@@ -15,5 +15,4 @@ for line in lines:
     n = entry[2].count(entry[1])
     if n >= entry[0][0] and n <= entry[0][1]:
         i += 1
-        print(entry)
 print(i)
