@@ -1,17 +1,17 @@
-# Make Postfix:
+# Make Postfix: -- + > *
 # ((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2
-# --> 2 4 + 9 * 6 9 + 8 * 6 + * 6 + 2 + 4 + 2 *
+# --> 2 4 + 9 * 6 9 + 8 6 + * 6 + * 2 + 4 + 2 *
 # 2 * 4 + 2 + (6 + (6 + 8 * 9 + 6) * (9 * 4 + 2))
-# --> 2 4 * 2 + 6 6 8 + 9 * 6 + + 9 4 * 2 + * +
+# --> 2 4 2 + 6 6 8 + 9 6 + * + 9 4 2 + * * + *
 #
 # close parens pops op from op stack, pushes op to stack
 # op pushes to op stack
-# number pops from op stack, pushes op to stack
+# number pops from op stack, pushes op to stack UNLESS '*'
+# '*' stays on and only removed for close parens (all stars in parens)
 #
 # (5 * 4 + 7 + 4 + 8) + 9 * ((5 * 4) + 2 + (6 + 2 + 8 + 7 + 4 + 5)) * 5
-# --> 5 4 * 7 + 4 + 8 + 9 + 5 4 * 2 + 6 2 + 8 + 7 + 4 + 5 + + *
+# --> 5 4 7 + 4 + 8 + * 9 + 5 4 * 2 + 6 2 + 8 + 7 + 4 + 5 + + 5 *
 #
-# w * ((x * y) + z)
 def postfix(line: str) -> list:
     # this splits by spaces but keeps parens in place. Check parens level
     articles = line.split()
@@ -37,11 +37,13 @@ def postfix(line: str) -> list:
                 while len(parens_op) > 0:
                     stack.append(parens_op.pop())
             if len(op[-1]) != 0:
-                stack.append(op[-1].pop())
+                if op[-1][-1] != '*':
+                    stack.append(op[-1].pop())
         else:
             stack.append(int(a))
             if len(op[-1]) != 0:
-                stack.append(op[-1].pop())
+                if op[-1][-1] != '*':
+                    stack.append(op[-1].pop())
     lastop = op.pop()
     while len(lastop) > 0:
         stack.append(lastop.pop())
@@ -61,6 +63,7 @@ def solve(eqn: list) -> int:
                 stack.append(v1 + v2)
             else:
                 stack.append(v1 * v2)
+    #print(stack)
     return(stack.pop())
                 
 with open('day18.in') as f:
@@ -73,4 +76,4 @@ for line in lines:
 eqnsum = 0
 for eqn in stacks:
     eqnsum += solve(eqn)
-print(f"Day 18 Part 1: { eqnsum }")
+print(f"Day 18 Part 2: { eqnsum }")
